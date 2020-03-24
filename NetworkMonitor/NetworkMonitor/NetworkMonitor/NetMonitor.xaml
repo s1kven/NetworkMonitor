@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="NetworkMonitor.NetMonitor">
+    <ContentPage.Content>
+        <StackLayout Orientation="Vertical" Spacing="0" Padding="50">
+            <StackLayout Padding="0,0,0,0" HorizontalOptions="CenterAndExpand">
+                <Label FontSize="40" Text="Название сети"/>
+            </StackLayout>
+            <Grid HorizontalOptions="CenterAndExpand" RowSpacing="30" Padding="0,30,0,0">
+                <StackLayout Grid.Column="0" Grid.Row="0" Orientation="Vertical" HorizontalOptions="CenterAndExpand">
+                    <StackLayout Orientation="Horizontal">
+                        <StackLayout>
+                            <Image Source="download.png"/>
+                        </StackLayout>
+                        <StackLayout>
+                            <Label FontSize="21" Text="Скачать MBps"/>
+                        </StackLayout>
+                    </StackLayout>
+                    <StackLayout HorizontalOptions="CenterAndExpand">
+                        <Label FontSize="30" Text="0 B/s"/>
+                    </StackLayout>
+                </StackLayout>
+                <StackLayout Grid.Column="1" Grid.Row="0" Orientation="Vertical" HorizontalOptions="CenterAndExpand">
+                    <StackLayout Orientation="Horizontal">
+                        <StackLayout>
+                            <Image Source="upload.png"/>
+                        </StackLayout>
+                        <StackLayout>
+                            <Label FontSize="21" Text="Загрузить MBps"/>
+                        </StackLayout>
+                    </StackLayout>
+                    <StackLayout HorizontalOptions="CenterAndExpand">
+                        <Label FontSize="30" Text="0 B/s"/>
+                    </StackLayout>
+                </StackLayout>
+                <StackLayout Grid.Column="0" Grid.Row="1" Orientation="Vertical">
+                    <Label HorizontalOptions="CenterAndExpand" FontSize="18" Text="Максимальная скорость скачивания"/>
+                    <Label HorizontalOptions="CenterAndExpand" FontSize="25" Text="0 B/s"/>
+                </StackLayout>
+                <StackLayout Grid.Column="1" Grid.Row="1" Orientation="Vertical">
+                    <Label HorizontalOptions="CenterAndExpand" FontSize="18" Text="Максимальная скорость загрузки"/>
+                    <Label HorizontalOptions="CenterAndExpand" FontSize="25" Text="0 B/s"/>
+                </StackLayout>
+                <StackLayout Grid.Column="0" Grid.Row="2" Orientation="Vertical">
+                    <Label HorizontalOptions="CenterAndExpand" FontSize="18" Text="Израсходованный трафик скачивания"/>
+                    <Label HorizontalOptions="CenterAndExpand" FontSize="25" Text="0 B"/>
+                </StackLayout>
+                <StackLayout Grid.Column="1" Grid.Row="2" Orientation="Vertical">
+                    <Label HorizontalOptions="CenterAndExpand" FontSize="18" Text="Израсходованный трафик загрузки"/>
+                    <Label HorizontalOptions="CenterAndExpand" FontSize="25" Text="0 B"/>
+                </StackLayout>
+            </Grid>
+            <StackLayout Orientation="Vertical" Padding="0,30,0,0" HorizontalOptions="CenterAndExpand">
+                <Label FontSize="18" Text="Время использования сети"/>
+                <Label FontSize="25" HorizontalOptions="CenterAndExpand" Text="00:00:00"/>
+            </StackLayout>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
