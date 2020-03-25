@@ -10,7 +10,7 @@ namespace NetworkMonitor
         {
             InitializeComponent();
 
-            MainPage = new NetMonitor();
+            MainPage = new ConnectionInfo();
         }
 
         protected override void OnStart()
