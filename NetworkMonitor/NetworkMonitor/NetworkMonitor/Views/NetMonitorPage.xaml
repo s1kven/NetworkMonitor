@@ -4,11 +4,11 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
-             x:Class="NetworkMonitor.Pages.NetMonitorPage">
+             x:Class="NetworkMonitor.Views.NetMonitorPage">
     <ContentPage.Content>
         <StackLayout Orientation="Vertical" Spacing="0" Padding="50">
             <StackLayout Padding="0,0,0,0" HorizontalOptions="CenterAndExpand">
-                <Label FontSize="40" Text="Название сети"/>
+                <Label FontSize="40" Text="{Binding NetworkTitle}"/>
             </StackLayout>
             <Grid HorizontalOptions="CenterAndExpand" RowSpacing="30" Padding="0,30,0,0">
                 <StackLayout Grid.Column="0" Grid.Row="0" Orientation="Vertical" HorizontalOptions="CenterAndExpand">

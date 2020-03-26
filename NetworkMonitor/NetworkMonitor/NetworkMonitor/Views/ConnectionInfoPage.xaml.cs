@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-namespace NetworkMonitor.Pages
+namespace NetworkMonitor.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class ConnectionInfoPage : ContentPage

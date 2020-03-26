@@ -16,10 +16,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="Pages\ConnectionInfoPage.xaml.cs">
+    <Compile Update="Views\ConnectionInfoPage.xaml.cs">
       <DependentUpon>ConnectionInfoPage.xaml</DependentUpon>
     </Compile>
-    <Compile Update="Pages\NetMonitorPage.xaml.cs">
+    <Compile Update="Views\NetMonitorPage.xaml.cs">
       <DependentUpon>NetMonitorPage.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
@@ -28,16 +28,11 @@
     <EmbeddedResource Update="AppShell.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Pages\ConnectionInfoPage.xaml">
+    <EmbeddedResource Update="Views\ConnectionInfoPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Pages\NetMonitorPage.xaml">
+    <EmbeddedResource Update="Views\NetMonitorPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Models\" />
-    <Folder Include="ViewModels\" />
   </ItemGroup>
 </Project>
