@@ -10,7 +10,7 @@ namespace NetworkMonitor
         {
             InitializeComponent();
 
-            MainPage = new ConnectionInfo();
+            MainPage = new AppShell();
         }
 
         protected override void OnStart()
@@ -19,7 +19,7 @@ namespace NetworkMonitor
 
         protected override void OnSleep()
         {
-        }
+        }   
 
         protected override void OnResume()
         {

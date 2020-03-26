@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-namespace NetworkMonitor
+namespace NetworkMonitor.Pages
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class ConnectionInfo : ContentPage
+    public partial class ConnectionInfoPage : ContentPage
     {
-        public ConnectionInfo()
+        public ConnectionInfoPage()
         {
             InitializeComponent();
             ChangeEvenRowCollor(TelephonyGrid, Color.LightBlue);
