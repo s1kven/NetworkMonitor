@@ -6,7 +6,9 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Android.OS;
+using Xamarin.Forms;
 
+[assembly: Dependency(typeof(NetworkInfoLib.Android.NetInfo))]
 namespace NetworkMonitor.Droid
 {
     [Activity(Label = "NetworkMonitor", Icon = "@mipmap/icon", Theme = "@style/MainTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]

@@ -8,7 +8,7 @@
     <ContentPage.Content>
         <StackLayout Orientation="Vertical" Spacing="0" Padding="50">
             <StackLayout Padding="0,0,0,0" HorizontalOptions="CenterAndExpand">
-                <Label FontSize="40" Text="{Binding NetworkTitle}"/>
+                <Label FontSize="40" Text="{Binding ConnectionType}"/>
             </StackLayout>
             <Grid HorizontalOptions="CenterAndExpand" RowSpacing="30" Padding="0,30,0,0">
                 <StackLayout Grid.Column="0" Grid.Row="0" Orientation="Vertical" HorizontalOptions="CenterAndExpand">
@@ -47,11 +47,11 @@
                 </StackLayout>
                 <StackLayout Grid.Column="0" Grid.Row="2" Orientation="Vertical">
                     <Label HorizontalOptions="CenterAndExpand" FontSize="18" Text="Израсходованный трафик скачивания"/>
-                    <Label HorizontalOptions="CenterAndExpand" FontSize="25" Text="0 B"/>
+                    <Label HorizontalOptions="CenterAndExpand" FontSize="25" Text="{Binding MobileRxBytes}"/>
                 </StackLayout>
                 <StackLayout Grid.Column="1" Grid.Row="2" Orientation="Vertical">
                     <Label HorizontalOptions="CenterAndExpand" FontSize="18" Text="Израсходованный трафик загрузки"/>
-                    <Label HorizontalOptions="CenterAndExpand" FontSize="25" Text="0 B"/>
+                    <Label HorizontalOptions="CenterAndExpand" FontSize="25" Text="{Binding MobileTxBytes}"/>
                 </StackLayout>
             </Grid>
             <StackLayout Orientation="Vertical" Padding="0,30,0,0" HorizontalOptions="CenterAndExpand">
