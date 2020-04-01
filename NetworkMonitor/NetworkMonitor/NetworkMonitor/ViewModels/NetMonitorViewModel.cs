@@ -8,7 +8,7 @@ using System.Text;
 
 namespace NetworkMonitor.ViewModels
 {
-    public class NetMonitorViewModel: INotifyPropertyChanged
+    public class NetMonitorViewModel : INotifyPropertyChanged, IDisposable
     {
         public event PropertyChangedEventHandler PropertyChanged;
         private NetMonitor netMonitor;
@@ -106,6 +106,12 @@ namespace NetworkMonitor.ViewModels
         {
             if (PropertyChanged != null)
                 PropertyChanged(this, new PropertyChangedEventArgs(propName));
+        }
+
+        public void Dispose()
+        {
+            netInfo.ConnectionTypeChanged -= ConnectionTypeChanged;
+            netInfo.TrafficChanged -= TrafficChanged;
         }
     }
 }

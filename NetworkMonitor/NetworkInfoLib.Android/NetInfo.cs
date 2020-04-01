@@ -18,7 +18,7 @@ using Xamarin.Forms;
 [assembly: Dependency(typeof(NetworkInfoLib.Android.NetInfo))]
 namespace NetworkInfoLib.Android
 {
-    public class NetInfo : INetInfo
+    public class NetInfo : INetInfo, IDisposable
     {
         private ConnectionTypeChecker typeChecker;
 
@@ -108,6 +108,11 @@ namespace NetworkInfoLib.Android
                 default:
                     throw new Exception();
             }
+        }
+
+        public void Dispose()
+        {
+            typeChecker.ConnectionTypeChanged -= CurrentConnectionTypeChanged;
         }
     }
 }

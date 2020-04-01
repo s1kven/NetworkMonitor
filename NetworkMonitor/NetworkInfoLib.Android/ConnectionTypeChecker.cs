@@ -13,7 +13,7 @@ using Plugin.Connectivity;
 
 namespace NetworkInfoLib.Android
 {
-    internal class ConnectionTypeChecker
+    internal class ConnectionTypeChecker : IDisposable
     {
         internal bool IsWiFi { get; private set; }
         internal bool IsTelephony { get; private set; }
@@ -48,6 +48,11 @@ namespace NetworkInfoLib.Android
         {
             Console.WriteLine("ConnectionTypeChecker CurrentConnectivityChanged");
             CheckConnectionType();
+        }
+
+        public void Dispose()
+        {
+            CrossConnectivity.Current.ConnectivityChanged -= CurrentConnectivityChanged;
         }
     }
 }
