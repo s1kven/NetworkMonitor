@@ -16,14 +16,8 @@ namespace NetworkMonitor.Views
         public NetMonitorPage()
         {
             InitializeComponent();
-            
-            INetInfo netInfo = DependencyService.Get<INetInfo>();
-            this.BindingContext = new NetMonitorViewModel(netInfo)
-            {
-                ConnectionType = netInfo.GetTypeName(),
-                MobileRxBytes = netInfo.GetMobileRxBytes().ToString(),
-                MobileTxBytes = netInfo.GetMobileTxBytes().ToString(),
-            };
+            Console.WriteLine("Page");
+            this.BindingContext = new NetMonitorViewModel() { };
         }
     }
 }

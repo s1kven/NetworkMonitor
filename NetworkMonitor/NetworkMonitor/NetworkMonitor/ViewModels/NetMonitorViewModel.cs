@@ -14,17 +14,38 @@ namespace NetworkMonitor.ViewModels
         private NetMonitor netMonitor;
         private INetInfo netInfo;
 
-        public NetMonitorViewModel(INetInfo netInfo)
+        public NetMonitorViewModel()
         {
+            Console.WriteLine("NetMonitorViewModel");
             netMonitor = new NetMonitor();
-            this.netInfo = netInfo;
-            this.netInfo.TypeName += TypeNameChanged;
+            netInfo = Xamarin.Forms.DependencyService.Get<INetInfo>();
+            netInfo.ConnectionTypeChanged += ConnectionTypeChanged;
+            netInfo.TrafficChanged += TrafficChanged;
+            netInfo.CheckConnectionType();
+            //ConnectionType = netInfo.ConnectionType;
+            //ReceivedBytes = netInfo.GetReceivedBytes().ToString();
+            //TransmittedBytes = netInfo.GetTransmittedBytes().ToString();
+        }
+
+        private void ConnectionTypeChanged(object sender, string e)
+        {
+            Console.WriteLine("TypeNameChanged");
+            ConnectionType = netInfo.ConnectionType;
+        }
+        private void TrafficChanged(object sender, EventArgs e)
+        {
+            Console.WriteLine("TrafficChanged");
+            ReceivedBytes = netInfo.GetReceivedBytes().ToString();
+            Console.WriteLine("NetMonitorViewModel Received " + ReceivedBytes);
+            TransmittedBytes = netInfo.GetTransmittedBytes().ToString();
+            Console.WriteLine("NetMonitorViewModel Transmitted " + TransmittedBytes);
         }
         public string ConnectionType
         {
             get { return netMonitor.ConnectionType; }
             set
             {
+                Console.WriteLine("NetMonitorViewModel  ConnectionType");
                 if (netMonitor.ConnectionType != value)
                 {
                     netMonitor.ConnectionType = value;
@@ -32,29 +53,29 @@ namespace NetworkMonitor.ViewModels
                 }
             }
         }
-        public string MobileRxBytes
+        public string ReceivedBytes
         {
-            get { return netMonitor.MobileRxBytes; }
+            get { return netMonitor.ReceivedBytes; }
             set
             {
                 string bytes = TrafficToString(value);
-                if (netMonitor.MobileRxBytes != bytes)
+                if (netMonitor.ReceivedBytes != bytes)
                 {
-                    netMonitor.MobileRxBytes = bytes;
-                    OnPropertyChanged("MobileRxBytes");
+                    netMonitor.ReceivedBytes = bytes;
+                    OnPropertyChanged("ReceivedBytes");
                 }
             }
         }
-        public string MobileTxBytes
+        public string TransmittedBytes
         {
-            get { return netMonitor.MobileTxBytes; }
+            get { return netMonitor.TransmittedBytes; }
             set
             {
                 string bytes = TrafficToString(value);
-                if (netMonitor.MobileTxBytes != bytes)
+                if (netMonitor.TransmittedBytes != bytes)
                 {
-                    netMonitor.MobileTxBytes = bytes;
-                    OnPropertyChanged("MobileRxBytes");
+                    netMonitor.TransmittedBytes = bytes;
+                    OnPropertyChanged("TransmittedBytes");
                 }
             }
         }
@@ -86,10 +107,6 @@ namespace NetworkMonitor.ViewModels
                 variable = variable / Math.Pow(kB, 4);
                 return variable.ToString() + " TB";
             }
-        }
-        private void TypeNameChanged()
-        {
-            ConnectionType = netInfo.GetTypeName();
         }
         protected void OnPropertyChanged(string propName)
         {

@@ -6,10 +6,13 @@ namespace NetworkMonitor.ViewModels
 {
     public interface INetInfo
     {
-        delegate void TypeNameHandler();
-        event TypeNameHandler TypeName { add { } remove { } }
-        string GetTypeName();
-        long GetMobileRxBytes();
-        long GetMobileTxBytes();
+        //delegate void ConnectionTypeHandler();
+        event EventHandler<string> ConnectionTypeChanged;
+
+        event EventHandler TrafficChanged;
+        string ConnectionType { get; set; }
+        void CheckConnectionType();
+        long GetReceivedBytes();
+        long GetTransmittedBytes();
     }
 }

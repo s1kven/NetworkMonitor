@@ -47,11 +47,11 @@
                 </StackLayout>
                 <StackLayout Grid.Column="0" Grid.Row="2" Orientation="Vertical">
                     <Label HorizontalOptions="CenterAndExpand" FontSize="18" Text="Израсходованный трафик скачивания"/>
-                    <Label HorizontalOptions="CenterAndExpand" FontSize="25" Text="{Binding MobileRxBytes}"/>
+                    <Label HorizontalOptions="CenterAndExpand" FontSize="25" Text="{Binding ReceivedBytes}"/>
                 </StackLayout>
                 <StackLayout Grid.Column="1" Grid.Row="2" Orientation="Vertical">
                     <Label HorizontalOptions="CenterAndExpand" FontSize="18" Text="Израсходованный трафик загрузки"/>
-                    <Label HorizontalOptions="CenterAndExpand" FontSize="25" Text="{Binding MobileTxBytes}"/>
+                    <Label HorizontalOptions="CenterAndExpand" FontSize="25" Text="{Binding TransmittedBytes}"/>
                 </StackLayout>
             </Grid>
             <StackLayout Orientation="Vertical" Padding="0,30,0,0" HorizontalOptions="CenterAndExpand">

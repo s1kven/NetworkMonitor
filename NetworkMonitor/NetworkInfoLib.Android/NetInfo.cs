@@ -10,44 +10,104 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
+using NetworkInfoLib.Android.Telephony;
+using NetworkInfoLib.Android.WiFi;
 using NetworkMonitor.ViewModels;
+using Xamarin.Forms;
 
+[assembly: Dependency(typeof(NetworkInfoLib.Android.NetInfo))]
 namespace NetworkInfoLib.Android
 {
     public class NetInfo : INetInfo
     {
         private ConnectionTypeChecker typeChecker;
-        public delegate void TypeNameHandler();
-        event TypeNameHandler TypeName;
+
+        private TelephonyInfo telephonyInfo;
+        private WiFiInfo wifiInfo;
+        private const long defaultBytes = 0;
+
+        internal ConnectionType type;
+
+        public event EventHandler<string> ConnectionTypeChanged;
+        public event EventHandler TrafficChanged;
+
+        public string ConnectionType { get; set; }
 
         public NetInfo()
         {
+            Console.WriteLine("NetInfo");
             typeChecker = new ConnectionTypeChecker();
-            typeChecker.CheckType();
-            //typeChecker.ConnectionType += func;
-            TypeName?.Invoke();
+            typeChecker.ConnectionTypeChanged += CurrentConnectionTypeChanged;
+            telephonyInfo = new TelephonyInfo();
+            wifiInfo = new WiFiInfo();
         }
 
-        //public void func(bool connection)
-        //{
-        //    GetTypeName();
-        //}
-        public string GetTypeName()
+        private string GetConnectionType()
         {
-            if (typeChecker.IsTelephony == true)
-                return "Telephony";
-            else if (typeChecker.IsWiFi == true)
-                return "WiFI";
+            Console.WriteLine("NetInfo GetTypeName");
+            if (typeChecker.IsTelephony)
+            {
+                type = Android.ConnectionType.Telephony;
+                return Android.ConnectionType.Telephony.ToString();
+            }
+            else if (typeChecker.IsWiFi)
+            {
+                type = Android.ConnectionType.WiFi;
+                return Android.ConnectionType.WiFi.ToString();
+            }
             else
-                return "offline";
+            {
+                type = Android.ConnectionType.offline;
+                return Android.ConnectionType.offline.ToString();
+            }
         }
-        public long GetMobileRxBytes()
+        private void CurrentConnectionTypeChanged()
         {
-            return TrafficStats.MobileRxBytes;
+            Console.WriteLine("NetInfo ConType");
+            ConnectionType = GetConnectionType();
+            ConnectionTypeChanged?.Invoke(this, ConnectionType);
+            TrafficChanged?.Invoke(this, null);
         }
-        public long GetMobileTxBytes()
+        public void CheckConnectionType()
         {
-            return TrafficStats.MobileTxBytes;
+            Console.WriteLine("NetInfo CheckType");
+            typeChecker.CheckConnectionType();
+        }
+        public long GetReceivedBytes()
+        {
+            Console.WriteLine("NetInfo GetReceivedBytes");
+            switch(type)
+            {
+                case Android.ConnectionType.Telephony:
+                    Console.WriteLine(telephonyInfo.ReceivedBytes.ToString());
+                    return telephonyInfo.ReceivedBytes;
+                case Android.ConnectionType.WiFi:
+                    Console.WriteLine(wifiInfo.ReceivedBytes.ToString());
+                    return wifiInfo.ReceivedBytes;
+                case Android.ConnectionType.offline:
+                    Console.WriteLine(defaultBytes.ToString());
+                    return defaultBytes;
+                default:
+                    throw new Exception();
+            }
+        }
+        public long GetTransmittedBytes()
+        {
+            Console.WriteLine("NetInfo GetTransmittedBytes");
+            switch (type)
+            {
+                case Android.ConnectionType.Telephony:
+                    Console.WriteLine(telephonyInfo.TransmittedBytes.ToString());
+                    return telephonyInfo.TransmittedBytes;
+                case Android.ConnectionType.WiFi:
+                    Console.WriteLine(wifiInfo.TransmittedBytes.ToString());
+                    return wifiInfo.TransmittedBytes;
+                case Android.ConnectionType.offline:
+                    Console.WriteLine(defaultBytes.ToString());
+                    return defaultBytes;
+                default:
+                    throw new Exception();
+            }
         }
     }
 }

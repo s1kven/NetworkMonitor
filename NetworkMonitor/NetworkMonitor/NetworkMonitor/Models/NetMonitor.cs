@@ -11,8 +11,8 @@ namespace NetworkMonitor.Models
         public double UploadSpeed { get; set; }
         public double MaxDownloadSpeed { get; set; }
         public double MaxUploadSpeed { get; set; }
-        public string MobileRxBytes { get; set; }
-        public string MobileTxBytes { get; set; }
+        public string ReceivedBytes { get; set; }
+        public string TransmittedBytes { get; set; }
         public double NetworkTimer { get; set; }
     }
 }

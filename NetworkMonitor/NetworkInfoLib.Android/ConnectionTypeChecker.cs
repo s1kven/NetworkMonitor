@@ -13,45 +13,41 @@ using Plugin.Connectivity;
 
 namespace NetworkInfoLib.Android
 {
-    public class ConnectionTypeChecker
+    internal class ConnectionTypeChecker
     {
-        public bool IsWiFi { get; private set; }
-        public bool IsTelephony { get; private set; }
-        //public delegate void ConnectionTypeHandler(bool connection);
-        //public event ConnectionTypeHandler ConnectionType;
-        public ConnectionTypeChecker()
+        internal bool IsWiFi { get; private set; }
+        internal bool IsTelephony { get; private set; }
+        internal delegate void ConnectionTypeHandler();
+        internal event ConnectionTypeHandler ConnectionTypeChanged;
+        internal ConnectionTypeChecker()
         {
+            Console.WriteLine("ConnectionTypeChecker");
             CrossConnectivity.Current.ConnectivityChanged += CurrentConnectivityChanged;
         }
-        internal void CheckType()
+        internal void CheckConnectionType()
         {
+            Console.WriteLine("ConnectionTypeChecker CheckType");
             if (CrossConnectivity.Current != null &&
                 CrossConnectivity.Current.ConnectionTypes != null &&
                 CrossConnectivity.Current.IsConnected == true)
             {
                 var connectionType = CrossConnectivity.Current.ConnectionTypes.FirstOrDefault();
                 if (connectionType == Plugin.Connectivity.Abstractions.ConnectionType.Cellular)
-                {
                     IsTelephony = true;
-                    //ConnectionType?.Invoke(IsTelephony);
-                }
                 else if (connectionType == Plugin.Connectivity.Abstractions.ConnectionType.WiFi)
-                {
                     IsWiFi = true;
-                    //ConnectionType?.Invoke(IsWiFi);
-                }
             }
             else
             {
                 IsTelephony = false;
                 IsWiFi = false;
-                //ConnectionType?.Invoke(IsTelephony);
-                //ConnectionType?.Invoke(IsWiFi);
             }
+            ConnectionTypeChanged?.Invoke();
         }
         private void CurrentConnectivityChanged(object sender, Plugin.Connectivity.Abstractions.ConnectivityChangedEventArgs e)
         {
-            CheckType();
+            Console.WriteLine("ConnectionTypeChecker CurrentConnectivityChanged");
+            CheckConnectionType();
         }
     }
 }
