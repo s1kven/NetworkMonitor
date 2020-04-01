@@ -13,7 +13,7 @@ using Android.Widget;
 
 namespace NetworkInfoLib.Android.WiFi
 {
-    public class WiFiInfo
+    public class WiFiInfo : IConnectionInfo
     {
         public long ReceivedBytes
         {

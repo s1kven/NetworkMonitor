@@ -48,6 +48,7 @@
   <ItemGroup>
     <Compile Include="ConnectionType.cs" />
     <Compile Include="ConnectionTypeChecker.cs" />
+    <Compile Include="IConnectionInfo.cs" />
     <Compile Include="NetInfo.cs" />
     <Compile Include="Resources\Resource.designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

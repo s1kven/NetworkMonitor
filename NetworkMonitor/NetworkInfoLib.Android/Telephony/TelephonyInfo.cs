@@ -13,7 +13,7 @@ using Android.Widget;
 
 namespace NetworkInfoLib.Android.Telephony
 {
-    public class TelephonyInfo
+    public class TelephonyInfo : IConnectionInfo
     {
         public long ReceivedBytes 
         {

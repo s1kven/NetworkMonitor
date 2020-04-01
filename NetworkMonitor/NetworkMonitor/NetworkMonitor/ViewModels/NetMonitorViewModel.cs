@@ -22,9 +22,6 @@ namespace NetworkMonitor.ViewModels
             netInfo.ConnectionTypeChanged += ConnectionTypeChanged;
             netInfo.TrafficChanged += TrafficChanged;
             netInfo.CheckConnectionType();
-            //ConnectionType = netInfo.ConnectionType;
-            //ReceivedBytes = netInfo.GetReceivedBytes().ToString();
-            //TransmittedBytes = netInfo.GetTransmittedBytes().ToString();
         }
 
         private void ConnectionTypeChanged(object sender, string e)
@@ -36,16 +33,13 @@ namespace NetworkMonitor.ViewModels
         {
             Console.WriteLine("TrafficChanged");
             ReceivedBytes = netInfo.GetReceivedBytes().ToString();
-            Console.WriteLine("NetMonitorViewModel Received " + ReceivedBytes);
             TransmittedBytes = netInfo.GetTransmittedBytes().ToString();
-            Console.WriteLine("NetMonitorViewModel Transmitted " + TransmittedBytes);
         }
         public string ConnectionType
         {
             get { return netMonitor.ConnectionType; }
             set
             {
-                Console.WriteLine("NetMonitorViewModel  ConnectionType");
                 if (netMonitor.ConnectionType != value)
                 {
                     netMonitor.ConnectionType = value;
@@ -82,30 +76,30 @@ namespace NetworkMonitor.ViewModels
         private string TrafficToString(string bytes)
         {
             const int kB = 1000;
-            double variable = Convert.ToDouble(bytes);
-            if (variable < Math.Pow(kB, 1))
+            double traffic = Convert.ToDouble(bytes);
+            if (traffic < Math.Pow(kB, 1))
             { 
-                return variable.ToString() + " B";
+                return traffic.ToString() + " B";
             }
-            else if (variable >= Math.Pow(kB, 1) && variable < Math.Pow(kB, 2))
+            else if (traffic >= Math.Pow(kB, 1) && traffic < Math.Pow(kB, 2))
             {
-                variable = variable / Math.Pow(kB, 1);
-                return variable.ToString() + " kB";
+                traffic = traffic / Math.Pow(kB, 1);
+                return traffic.ToString() + " kB";
             }
-            else if (variable >= Math.Pow(kB, 2) && variable < Math.Pow(kB, 3))
+            else if (traffic >= Math.Pow(kB, 2) && traffic < Math.Pow(kB, 3))
             {
-                variable = variable / Math.Pow(kB, 2);
-                return variable.ToString() + " MB";
+                traffic = traffic / Math.Pow(kB, 2);
+                return traffic.ToString() + " MB";
             }
-            else if (variable >= Math.Pow(kB, 3) && variable < Math.Pow(kB, 4))
+            else if (traffic >= Math.Pow(kB, 3) && traffic < Math.Pow(kB, 4))
             {
-                variable = variable / Math.Pow(kB, 3);
-                return variable.ToString() + " GB";
+                traffic = traffic / Math.Pow(kB, 3);
+                return traffic.ToString() + " GB";
             }
             else
             {
-                variable = variable / Math.Pow(kB, 4);
-                return variable.ToString() + " TB";
+                traffic = traffic / Math.Pow(kB, 4);
+                return traffic.ToString() + " TB";
             }
         }
         protected void OnPropertyChanged(string propName)
