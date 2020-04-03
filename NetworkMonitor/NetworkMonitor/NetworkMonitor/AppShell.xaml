@@ -23,5 +23,6 @@
 
     <ShellContent Title="NetMonitor" ContentTemplate="{DataTemplate pages:NetMonitorPage}"/>
     <ShellContent Title="ConnectionInfo" ContentTemplate="{DataTemplate pages:ConnectionInfoPage}"/>
-    
+    <ShellContent Title="ConnectionHistory" ContentTemplate="{DataTemplate pages:ConnectionHistoryPage}"/>
+
 </Shell>
