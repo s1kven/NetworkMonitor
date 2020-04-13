@@ -11,23 +11,50 @@
             <ListView x:Name="datesList"
               HasUnevenRows="True"
               ItemsSource="{Binding Dates}">
+                <ListView.Header>
+                    <StackLayout Orientation="Horizontal">
+                        <Label Text="Даты подключений" FontSize="25" HorizontalOptions="FillAndExpand" />
+                    </StackLayout>
+                </ListView.Header>
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
                             <ViewCell.View>
                                 <StackLayout>
-                                    <Label Text="{Binding DateString}" FontSize="18" />
+                                    <Label Text="{Binding DateString}" FontSize="20" Padding="10,0,0,0"/>
                                     <ListView x:Name="connectionsList"
                                               HasUnevenRows="True"
                                               ItemsSource="{Binding Connections}">
+                                        <ListView.Header>
+                                            <StackLayout Orientation="Horizontal">
+                                                <Label Text="Подключения" FontSize="18" HorizontalOptions="FillAndExpand" Padding="20,0,0,0"/>
+                                            </StackLayout>
+                                        </ListView.Header>
                                         <ListView.ItemTemplate>
                                             <DataTemplate>
                                                 <ViewCell>
                                                     <ViewCell.View>
                                                         <StackLayout>
-                                                            <Label Text="{Binding IP}"/>
-                                                            <Label Text="{Binding ReceivedBytes}"/>
-                                                            <Label Text="{Binding TransmittedBytes}"/>
+                                                            <Grid HorizontalOptions="CenterAndExpand" RowSpacing="10" Padding="30,0,0,0">
+                                                                <FlexLayout Grid.Column="0" Grid.Row="0">
+                                                                    <Label Text="IP: "/>
+                                                                </FlexLayout>
+                                                                <FlexLayout Grid.Column="1" Grid.Row="0">
+                                                                    <Label Text="{Binding IP}"/>
+                                                                </FlexLayout>
+                                                                <FlexLayout Grid.Column="0" Grid.Row="1">
+                                                                    <Label Text="Трафик скачивания: "/>
+                                                                </FlexLayout>
+                                                                <FlexLayout Grid.Column="1" Grid.Row="1">
+                                                                    <Label Text="{Binding ReceivedBytes}"/>
+                                                                </FlexLayout>
+                                                                <FlexLayout Grid.Column="0" Grid.Row="2">
+                                                                    <Label Text="Трафик загрузки: "/>
+                                                                </FlexLayout>
+                                                                <FlexLayout Grid.Column="1" Grid.Row="2">
+                                                                    <Label Text="{Binding TransmittedBytes}"/>
+                                                                </FlexLayout>
+                                                            </Grid>
                                                         </StackLayout>
                                                     </ViewCell.View>
                                                 </ViewCell>

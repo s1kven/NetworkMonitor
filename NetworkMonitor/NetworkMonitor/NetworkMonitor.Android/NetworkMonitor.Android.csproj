@@ -53,6 +53,9 @@
     <Reference Include="System.Numerics.Vectors" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="sqlite-net-pcl">
+      <Version>1.6.292</Version>
+    </PackageReference>
     <PackageReference Include="Xam.Plugin.Connectivity">
       <Version>3.2.0</Version>
     </PackageReference>
@@ -92,6 +95,10 @@
     <ProjectReference Include="..\..\NetworkInfoLib.Android\NetworkInfoLib.Android.csproj">
       <Project>{083221ee-594f-4d76-b86b-7885c84be1e5}</Project>
       <Name>NetworkInfoLib.Android</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\NetworkMonitor.Android.Services\NetworkMonitor.Services.csproj">
+      <Project>{1e0b2faa-364a-4296-b564-58d19124b8e7}</Project>
+      <Name>NetworkMonitor.Services</Name>
     </ProjectReference>
     <ProjectReference Include="..\NetworkMonitor\NetworkMonitor.csproj">
       <Project>{EBA68881-E042-4A39-AD2C-5E49D5A4C2EE}</Project>

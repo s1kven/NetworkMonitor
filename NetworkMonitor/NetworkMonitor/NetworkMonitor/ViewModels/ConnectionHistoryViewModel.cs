@@ -1,7 +1,10 @@
-﻿using NetworkMonitor.Models;
+﻿using NetworkMonitor.DB;
+using NetworkMonitor.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.IO;
+using System.Linq;
 using System.Text;
 using Xamarin.Forms;
 
@@ -10,33 +13,26 @@ namespace NetworkMonitor.ViewModels
     public class ConnectionHistoryViewModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
-        public ConnectionHistory history;
 
-        Date date;
-        Connection connection;
+        private DataMapper mapper;
+        private ConnectionHistory history;
+        private Date date;
+        private Connection connection;
         public ConnectionHistoryViewModel()
         {
+            mapper = new DataMapper();
             history = new ConnectionHistory();
             date = new Date();
             connection = new Connection();
-            connection.IP = "123.54.74.23";
-            connection.ReceivedBytes = 12345323;
-            connection.TransmittedBytes = 74564564;
-            date.DateString = "01.01.2020";
-            date.Connections = new List<Connection>();
-            date.Connections.Add(connection);
             history.Dates = new List<Date>();
-            history.Dates.Add(date);
-            //history.Dates = new List<Date>()
-            //{
-            //    new Date()
-            //    { DateString = "01.01.2020", Connections = new List<Connection>()
-            //        {
-            //            new Connection() {IP = "123.54.74.23", ReceivedBytes = 12345323, TransmittedBytes = 74564564},
-            //            new Connection() {IP = "153.76.34.123", ReceivedBytes = 345323, TransmittedBytes = 745564},
-            //        }
-            //    }
-            //};
+            GetHistory(mapper);
+        }
+        private void GetHistory(DataMapper mapper)
+        {
+            foreach (Date date in mapper.GetDates())
+            {
+                history.Dates.Add(date);
+            }
         }
         public List<Date> Dates 
         {

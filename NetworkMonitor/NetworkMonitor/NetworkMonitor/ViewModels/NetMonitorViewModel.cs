@@ -1,4 +1,5 @@
 ﻿using NetworkMonitor.Models;
+using NetworkMonitor.ViewModels.Styles;
 using Plugin.Connectivity;
 using System;
 using System.Collections.Generic;
@@ -16,25 +17,25 @@ namespace NetworkMonitor.ViewModels
 
         public NetMonitorViewModel()
         {
-            Console.WriteLine("NetMonitorViewModel");
             netMonitor = new NetMonitor();
             netInfo = Xamarin.Forms.DependencyService.Get<INetInfo>();
             netInfo.ConnectionTypeChanged += ConnectionTypeChanged;
-            netInfo.TrafficChanged += TrafficChanged;
+            //netInfo.TrafficChanged += TrafficChanged;
             netInfo.CheckConnectionType();
         }
 
         private void ConnectionTypeChanged(object sender, string e)
         {
-            Console.WriteLine("TypeNameChanged");
             ConnectionType = netInfo.ConnectionType;
-        }
-        private void TrafficChanged(object sender, EventArgs e)
-        {
-            Console.WriteLine("TrafficChanged");
             ReceivedBytes = netInfo.GetReceivedBytes().ToString();
             TransmittedBytes = netInfo.GetTransmittedBytes().ToString();
         }
+        //private void TrafficChanged(object sender, EventArgs e)
+        //{
+        //    Console.WriteLine("TrafficChanged");
+        //    ReceivedBytes = netInfo.GetReceivedBytes().ToString();
+        //    TransmittedBytes = netInfo.GetTransmittedBytes().ToString();
+        //}
         public string ConnectionType
         {
             get { return netMonitor.ConnectionType; }
@@ -52,7 +53,7 @@ namespace NetworkMonitor.ViewModels
             get { return netMonitor.ReceivedBytes; }
             set
             {
-                string bytes = TrafficToString(value);
+                string bytes = DataStyle.TrafficToString(value);
                 if (netMonitor.ReceivedBytes != bytes)
                 {
                     netMonitor.ReceivedBytes = bytes;
@@ -65,41 +66,12 @@ namespace NetworkMonitor.ViewModels
             get { return netMonitor.TransmittedBytes; }
             set
             {
-                string bytes = TrafficToString(value);
+                string bytes = DataStyle.TrafficToString(value);
                 if (netMonitor.TransmittedBytes != bytes)
                 {
                     netMonitor.TransmittedBytes = bytes;
                     OnPropertyChanged("TransmittedBytes");
                 }
-            }
-        }
-        private string TrafficToString(string bytes)
-        {
-            const int kB = 1000;
-            double traffic = Convert.ToDouble(bytes);
-            if (traffic < Math.Pow(kB, 1))
-            { 
-                return traffic.ToString() + " B";
-            }
-            else if (traffic >= Math.Pow(kB, 1) && traffic < Math.Pow(kB, 2))
-            {
-                traffic = traffic / Math.Pow(kB, 1);
-                return traffic.ToString() + " kB";
-            }
-            else if (traffic >= Math.Pow(kB, 2) && traffic < Math.Pow(kB, 3))
-            {
-                traffic = traffic / Math.Pow(kB, 2);
-                return traffic.ToString() + " MB";
-            }
-            else if (traffic >= Math.Pow(kB, 3) && traffic < Math.Pow(kB, 4))
-            {
-                traffic = traffic / Math.Pow(kB, 3);
-                return traffic.ToString() + " GB";
-            }
-            else
-            {
-                traffic = traffic / Math.Pow(kB, 4);
-                return traffic.ToString() + " TB";
             }
         }
         protected void OnPropertyChanged(string propName)
@@ -111,7 +83,6 @@ namespace NetworkMonitor.ViewModels
         public void Dispose()
         {
             netInfo.ConnectionTypeChanged -= ConnectionTypeChanged;
-            netInfo.TrafficChanged -= TrafficChanged;
         }
     }
 }

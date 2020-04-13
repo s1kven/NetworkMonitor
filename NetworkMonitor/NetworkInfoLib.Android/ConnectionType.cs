@@ -1,6 +1,6 @@
 ﻿namespace NetworkInfoLib.Android
 {
-    enum ConnectionType
+    public enum ConnectionType
     {
         Telephony,
         WiFi,

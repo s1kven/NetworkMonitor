@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetworkInfoLib.Android", "N
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetworkMonitor.DB", "NetworkMonitor.DB\NetworkMonitor.DB.csproj", "{BF94E3E6-4C78-4CDB-B798-2A4C55D27F8F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetworkMonitor.Services", "NetworkMonitor.Android.Services\NetworkMonitor.Services.csproj", "{1E0B2FAA-364A-4296-B564-58D19124B8E7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -37,6 +39,10 @@ Global
 		{BF94E3E6-4C78-4CDB-B798-2A4C55D27F8F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BF94E3E6-4C78-4CDB-B798-2A4C55D27F8F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BF94E3E6-4C78-4CDB-B798-2A4C55D27F8F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1E0B2FAA-364A-4296-B564-58D19124B8E7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1E0B2FAA-364A-4296-B564-58D19124B8E7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1E0B2FAA-364A-4296-B564-58D19124B8E7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1E0B2FAA-364A-4296-B564-58D19124B8E7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

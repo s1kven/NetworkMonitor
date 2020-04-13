@@ -17,8 +17,8 @@ namespace NetworkMonitor.DB.Tables
         public long ReceivedBytes { get; set; }
         public long TransmittedBytes { get; set; }
 
-        [ForeignKey(typeof(Connection))]
-        public int IdConnection { get; set; }
+        //[ForeignKey(typeof(Connection))]
+        //public int IdConnection { get; set; }
 
         [ForeignKey(typeof(Date))]
         public int IdDate { get; set; }

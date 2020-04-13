@@ -8,9 +8,8 @@ namespace NetworkMonitor.ViewModels
     {
         //delegate void ConnectionTypeHandler();
         event EventHandler<string> ConnectionTypeChanged;
-
-        event EventHandler TrafficChanged;
         string ConnectionType { get; set; }
+        string IP { get; }
         void CheckConnectionType();
         long GetReceivedBytes();
         long GetTransmittedBytes();

@@ -21,12 +21,10 @@ namespace NetworkInfoLib.Android
         internal event ConnectionTypeHandler ConnectionTypeChanged;
         internal ConnectionTypeChecker()
         {
-            Console.WriteLine("ConnectionTypeChecker");
             CrossConnectivity.Current.ConnectivityChanged += CurrentConnectivityChanged;
         }
         internal void CheckConnectionType()
         {
-            Console.WriteLine("ConnectionTypeChecker CheckType");
             if (CrossConnectivity.Current != null &&
                 CrossConnectivity.Current.ConnectionTypes != null &&
                 CrossConnectivity.Current.IsConnected == true)
@@ -46,7 +44,6 @@ namespace NetworkInfoLib.Android
         }
         private void CurrentConnectivityChanged(object sender, Plugin.Connectivity.Abstractions.ConnectivityChangedEventArgs e)
         {
-            Console.WriteLine("ConnectionTypeChecker CurrentConnectivityChanged");
             CheckConnectionType();
         }
 

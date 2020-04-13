@@ -20,22 +20,24 @@ namespace NetworkInfoLib.Android
 {
     public class NetInfo : INetInfo, IDisposable
     {
+        private DhcpInfo dhcp;
         private ConnectionTypeChecker typeChecker;
 
         private TelephonyInfo telephonyInfo;
         private WiFiInfo wifiInfo;
         private const long defaultBytes = 0;
 
-        internal ConnectionType type;
+        public ConnectionType type;
 
         public event EventHandler<string> ConnectionTypeChanged;
-        public event EventHandler TrafficChanged;
+        //public event EventHandler TrafficChanged;
 
         public string ConnectionType { get; set; }
+        public string IP { get; private set; }
 
         public NetInfo()
         {
-            Console.WriteLine("NetInfo");
+            dhcp = new DhcpInfo();
             typeChecker = new ConnectionTypeChecker();
             typeChecker.ConnectionTypeChanged += CurrentConnectionTypeChanged;
             telephonyInfo = new TelephonyInfo();
@@ -44,7 +46,6 @@ namespace NetworkInfoLib.Android
 
         private string GetConnectionType()
         {
-            Console.WriteLine("NetInfo GetTypeName");
             if (typeChecker.IsTelephony)
             {
                 type = Android.ConnectionType.Telephony;
@@ -63,29 +64,24 @@ namespace NetworkInfoLib.Android
         }
         private void CurrentConnectionTypeChanged()
         {
-            Console.WriteLine("NetInfo ConType");
             ConnectionType = GetConnectionType();
+            IP = dhcp.ServerAddress.ToString();
+            //TrafficChanged?.Invoke(this, null);
             ConnectionTypeChanged?.Invoke(this, ConnectionType);
-            TrafficChanged?.Invoke(this, null);
         }
         public void CheckConnectionType()
         {
-            Console.WriteLine("NetInfo CheckType");
             typeChecker.CheckConnectionType();
         }
         public long GetReceivedBytes()
         {
-            Console.WriteLine("NetInfo GetReceivedBytes");
             switch(type)
             {
                 case Android.ConnectionType.Telephony:
-                    Console.WriteLine(telephonyInfo.ReceivedBytes.ToString());
                     return telephonyInfo.ReceivedBytes;
                 case Android.ConnectionType.WiFi:
-                    Console.WriteLine(wifiInfo.ReceivedBytes.ToString());
                     return wifiInfo.ReceivedBytes;
                 case Android.ConnectionType.offline:
-                    Console.WriteLine(defaultBytes.ToString());
                     return defaultBytes;
                 default:
                     throw new Exception();
@@ -93,23 +89,26 @@ namespace NetworkInfoLib.Android
         }
         public long GetTransmittedBytes()
         {
-            Console.WriteLine("NetInfo GetTransmittedBytes");
             switch (type)
             {
                 case Android.ConnectionType.Telephony:
-                    Console.WriteLine(telephonyInfo.TransmittedBytes.ToString());
                     return telephonyInfo.TransmittedBytes;
                 case Android.ConnectionType.WiFi:
-                    Console.WriteLine(wifiInfo.TransmittedBytes.ToString());
                     return wifiInfo.TransmittedBytes;
                 case Android.ConnectionType.offline:
-                    Console.WriteLine(defaultBytes.ToString());
                     return defaultBytes;
                 default:
                     throw new Exception();
             }
         }
-
+        public long GetTotalReceivedBytes()
+        {
+            return TrafficStats.TotalRxBytes;
+        }
+        public long GetTotalTransmittedBytes()
+        {
+            return TrafficStats.TotalTxBytes;
+        }
         public void Dispose()
         {
             typeChecker.ConnectionTypeChanged -= CurrentConnectionTypeChanged;

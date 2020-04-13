@@ -16,8 +16,8 @@ namespace NetworkMonitor.DB.Tables
 
         public string IP { get; set; }
 
-        [OneToMany]
-        public List<Traffic> Traffics { get; set; }
+        //[OneToMany]
+        //public List<Traffic> Traffics { get; set; }
 
         [ForeignKey(typeof(Date))]
         public int IdDate { get; set; }
