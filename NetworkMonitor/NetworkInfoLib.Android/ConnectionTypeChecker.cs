@@ -22,6 +22,7 @@ namespace NetworkInfoLib.Android
         internal ConnectionTypeChecker()
         {
             CrossConnectivity.Current.ConnectivityChanged += CurrentConnectivityChanged;
+            CheckConnectionType();
         }
         internal void CheckConnectionType()
         {

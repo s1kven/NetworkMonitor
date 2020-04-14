@@ -6,6 +6,7 @@ using System.Text;
 using Android.App;
 using Android.Content;
 using Android.Net;
+using Android.Net.Wifi;
 using Android.OS;
 using Android.Runtime;
 using Android.Views;
@@ -20,7 +21,6 @@ namespace NetworkInfoLib.Android
 {
     public class NetInfo : INetInfo, IDisposable
     {
-        private DhcpInfo dhcp;
         private ConnectionTypeChecker typeChecker;
 
         private TelephonyInfo telephonyInfo;
@@ -30,18 +30,18 @@ namespace NetworkInfoLib.Android
         public ConnectionType type;
 
         public event EventHandler<string> ConnectionTypeChanged;
-        //public event EventHandler TrafficChanged;
 
         public string ConnectionType { get; set; }
         public string IP { get; private set; }
 
         public NetInfo()
         {
-            dhcp = new DhcpInfo();
             typeChecker = new ConnectionTypeChecker();
             typeChecker.ConnectionTypeChanged += CurrentConnectionTypeChanged;
             telephonyInfo = new TelephonyInfo();
             wifiInfo = new WiFiInfo();
+            ConnectionType = GetConnectionType();
+            SetIP();
         }
 
         private string GetConnectionType()
@@ -62,11 +62,15 @@ namespace NetworkInfoLib.Android
                 return Android.ConnectionType.offline.ToString();
             }
         }
+        private void SetIP()
+        {
+            if (type == Android.ConnectionType.WiFi)
+                IP = wifiInfo.GetIPAddress();
+        }
         private void CurrentConnectionTypeChanged()
         {
             ConnectionType = GetConnectionType();
-            IP = dhcp.ServerAddress.ToString();
-            //TrafficChanged?.Invoke(this, null);
+            SetIP();
             ConnectionTypeChanged?.Invoke(this, ConnectionType);
         }
         public void CheckConnectionType()

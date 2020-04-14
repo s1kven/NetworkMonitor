@@ -16,6 +16,7 @@ namespace NetworkMonitor.Views
         public ConnectionHistoryPage()
         {
             InitializeComponent();
+            FlexLayout IpLabel = new FlexLayout();
             this.BindingContext = new ConnectionHistoryViewModel();
         }
     }

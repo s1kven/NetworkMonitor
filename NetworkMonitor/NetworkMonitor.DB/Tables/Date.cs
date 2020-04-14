@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace NetworkMonitor.DB.Tables
 {
     [Table("Dates")]
-    public class Date
+    public class Date : ITable
     {
         [PrimaryKey, AutoIncrement]
         public int Id { get; set; }

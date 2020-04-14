@@ -34,24 +34,30 @@
                                             <DataTemplate>
                                                 <ViewCell>
                                                     <ViewCell.View>
-                                                        <StackLayout>
+                                                        <StackLayout Padding="0,20,0,0">
                                                             <Grid HorizontalOptions="CenterAndExpand" RowSpacing="10" Padding="30,0,0,0">
                                                                 <FlexLayout Grid.Column="0" Grid.Row="0">
-                                                                    <Label Text="IP: "/>
+                                                                    <Label Text="Тип подключения: "/>
                                                                 </FlexLayout>
                                                                 <FlexLayout Grid.Column="1" Grid.Row="0">
-                                                                    <Label Text="{Binding IP}"/>
+                                                                    <Label Text="{Binding ConnectionType}"/>
                                                                 </FlexLayout>
                                                                 <FlexLayout Grid.Column="0" Grid.Row="1">
-                                                                    <Label Text="Трафик скачивания: "/>
+                                                                    <Label Text="IP: "/>
                                                                 </FlexLayout>
                                                                 <FlexLayout Grid.Column="1" Grid.Row="1">
-                                                                    <Label Text="{Binding ReceivedBytes}"/>
+                                                                    <Label Text="{Binding IP}"/>
                                                                 </FlexLayout>
                                                                 <FlexLayout Grid.Column="0" Grid.Row="2">
-                                                                    <Label Text="Трафик загрузки: "/>
+                                                                    <Label Text="Трафик скачивания: "/>
                                                                 </FlexLayout>
                                                                 <FlexLayout Grid.Column="1" Grid.Row="2">
+                                                                    <Label Text="{Binding ReceivedBytes}"/>
+                                                                </FlexLayout>
+                                                                <FlexLayout Grid.Column="0" Grid.Row="3">
+                                                                    <Label Text="Трафик загрузки: "/>
+                                                                </FlexLayout>
+                                                                <FlexLayout Grid.Column="1" Grid.Row="3">
                                                                     <Label Text="{Binding TransmittedBytes}"/>
                                                                 </FlexLayout>
                                                             </Grid>

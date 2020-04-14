@@ -19,15 +19,13 @@ using NetworkInfoLib.Android.WiFi;
 namespace NetworkMonitor.Services.Services
 {
     [Service]
-    public class NetworkMonitorService : Service
+    public class DBService : Service
     {
         private NetInfo netInfo;
         private MidnightNotifier midNight;
         private Date date;
         private Connection connection;
         private Traffic traffic;
-        //private List<Connection> connections;
-        //private List<Traffic> traffics;
         private long ReceivedBytes { get; set; }
         private long TransmittedBytes { get; set; }
         public override IBinder OnBind(Intent intent)
@@ -43,18 +41,23 @@ namespace NetworkMonitor.Services.Services
             date = new Date();
             connection = new Connection();
             traffic = new Traffic();
-            //connections = new List<Connection>();
-            //traffics = new List<Traffic>();
             date.Connections = new List<Connection>();
             date.Traffics = new List<Traffic>();
-            if (netInfo.type != ConnectionType.offline)
-                connection.IP = netInfo.IP;
+            SetInitConnection();
             ReceivedBytes = netInfo.GetTotalReceivedBytes();
             TransmittedBytes = netInfo.GetTotalTransmittedBytes();
-            //netInfo.TrafficChanged += TrafficChanged;
             netInfo.ConnectionTypeChanged += ConnectionTypeChanged;
             midNight.DayChanged += WriteToDB;
             
+        }
+        private void SetInitConnection()
+        {
+            if (netInfo.ConnectionType != ConnectionType.offline.ToString())
+            {
+                connection.ConnectionType = netInfo.ConnectionType;
+                if(netInfo.ConnectionType != ConnectionType.Telephony.ToString())
+                    connection.IP = netInfo.IP;
+            }
         }
         private void WriteToDB(object sender, EventArgs e)
         {
@@ -72,14 +75,21 @@ namespace NetworkMonitor.Services.Services
                     Console.WriteLine("Save connection");
                     Console.WriteLine("connection.Id = " + connection.Id);
                     Console.WriteLine("connection.IdDate = " + connection.IdDate);
+                    Console.WriteLine("connection.ConnectionType = " + connection.ConnectionType);
                     Console.WriteLine("connection.IP = " + connection.IP);
                     DBRepository.GetInstance().SaveConnection(connection);
+
+                    //DBRepository.GetInstance().UpdateWithChildren(DBRepository.GetInstance().GetConnection(connection.IP));
                 }
                 foreach (Traffic traffic in date.Traffics)
                 {
+                    //if(IsExistIpDB(connection))
+                    //{
+                    //    traffic.IdConnection = DBRepository.GetInstance().GetConnection(connection.IP).Id;
+                    //}
                     Console.WriteLine("Save traffic");
                     Console.WriteLine("traffic.Id = " + traffic.Id);
-                    //Console.WriteLine("traffic.IdConnection = " + traffic.IdConnection);
+                    Console.WriteLine("traffic.IdConnection = " + traffic.IdConnection);
                     Console.WriteLine("traffic.IdDate = " + traffic.IdDate);
                     Console.WriteLine("traffic.ReceivedBytes = " + traffic.ReceivedBytes);
                     Console.WriteLine("traffic.TransmittedBytes = " + traffic.TransmittedBytes);
@@ -92,13 +102,14 @@ namespace NetworkMonitor.Services.Services
                     Console.WriteLine("Get connection");
                     Console.WriteLine("connection.Id = " + connection.Id);
                     Console.WriteLine("connection.IdDate = " + connection.IdDate);
+                    Console.WriteLine("connection.ConnectionType = " + connection.ConnectionType);
                     Console.WriteLine("connection.IP = " + connection.IP);
                 }
                 foreach (Traffic traffic in DBRepository.GetInstance().GetTraffics(date.Id))
                 {
                     Console.WriteLine("Get traffic");
                     Console.WriteLine("traffic.Id = " + traffic.Id);
-                    //Console.WriteLine("traffic.IdConnection = " + traffic.IdConnection);
+                    Console.WriteLine("traffic.IdConnection = " + traffic.IdConnection);
                     Console.WriteLine("traffic.IdDate = " + traffic.IdDate);
                     Console.WriteLine("traffic.ReceivedBytes = " + traffic.ReceivedBytes);
                     Console.WriteLine("traffic.TransmittedBytes = " + traffic.TransmittedBytes);
@@ -107,29 +118,45 @@ namespace NetworkMonitor.Services.Services
             //date = new Date();
             //traffic = new Traffic();
             //connection = new Connection();
-            //connections = new List<Connection>();
-            //traffics = new List<Traffic>();
         }
-        private void ConnectionTypeChanged(object sender, string e)
+        //private bool IsExistIpDB(Connection connection)
+        //{
+        //    if (DBRepository.GetInstance().GetConnection(connection.IP) == null)
+        //        return false;
+        //    else
+        //        return true;
+        //}
+        //private bool IsExistIpService(Connection connection, List<Connection> connections)
+        //{
+        //    bool isExistIP = false;
+        //    foreach(Connection con in connections)
+        //    {
+        //        if (connection.IP == con.IP)
+        //            isExistIP = true;
+        //    }
+        //    return isExistIP;
+        //}
+        private void ConnectionTypeChanged(object sender, string type)
         {
             Console.WriteLine("Service ConnectionTypeChanged");
-            if (e != ConnectionType.offline.ToString())
+            if (type != ConnectionType.offline.ToString())
             {
                 AddInfoPastConnection();
                 date.Traffics.Add(traffic);
                 date.Connections.Add(connection);
                 traffic = new Traffic();
                 connection = new Connection();
-                connection.IP = netInfo.IP;
+                connection.ConnectionType = type;
+                if (type != ConnectionType.Telephony.ToString())
+                    connection.IP = netInfo.IP;
             }
         }
         private void AddInfoPastConnection()
         {
             traffic.IdDate = date.Id;
+            traffic.IdConnection = connection.Id;
             traffic.ReceivedBytes = netInfo.GetTotalReceivedBytes() - ReceivedBytes;
-            Console.WriteLine("traffic.ReceivedBytes = " + traffic.ReceivedBytes);
             traffic.TransmittedBytes = netInfo.GetTotalTransmittedBytes() - TransmittedBytes;
-            Console.WriteLine("traffic.TransmittedBytes = " + traffic.TransmittedBytes);
             ReceivedBytes = netInfo.GetTotalReceivedBytes();
             TransmittedBytes = netInfo.GetTotalTransmittedBytes();
             connection.IdDate = date.Id;
@@ -139,7 +166,6 @@ namespace NetworkMonitor.Services.Services
         //    base.OnDestroy();
         //    Console.WriteLine("OnDestroyService");
         //    netInfo.ConnectionTypeChanged -= ConnectionTypeChanged;
-        //    netInfo.TrafficChanged -= TrafficChanged;
         //    midNight.DayChanged -= WriteToDB;
         //}
     }

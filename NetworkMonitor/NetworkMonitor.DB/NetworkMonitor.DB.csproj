@@ -68,6 +68,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Tables\Connection.cs" />
     <Compile Include="Tables\Date.cs" />
+    <Compile Include="Tables\ITable.cs" />
     <Compile Include="Tables\Traffic.cs" />
   </ItemGroup>
   <ItemGroup>

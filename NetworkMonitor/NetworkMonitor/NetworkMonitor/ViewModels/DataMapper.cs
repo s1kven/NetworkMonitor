@@ -1,6 +1,7 @@
 ﻿using NetworkMonitor.DB;
 using NetworkMonitor.DB.Tables;
 using NetworkMonitor.Models;
+using NetworkMonitor.ViewModels.Styles;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -29,11 +30,11 @@ namespace NetworkMonitor.ViewModels
             foreach (DB.Tables.Connection connectionDB in DBRepository.GetInstance().GetConnections(idDate))
             {
                 Models.Connection connection = new Models.Connection();
-                //Traffic traffic = new Traffic();
                 Traffic traffic = DBRepository.GetInstance().GetTraffic(connectionDB.Id);
+                connection.ConnectionType = connectionDB.ConnectionType;
                 connection.IP = connectionDB.IP;
-                connection.ReceivedBytes = traffic.ReceivedBytes;
-                connection.TransmittedBytes = traffic.TransmittedBytes;
+                connection.ReceivedBytes = DataStyle.TrafficToString(traffic.ReceivedBytes.ToString());
+                connection.TransmittedBytes = DataStyle.TrafficToString(traffic.TransmittedBytes.ToString());
                 connections.Add(connection);
             }
             return connections;

@@ -12,7 +12,7 @@ namespace NetworkMonitor.DB
 {
     public class DBRepository
     {
-        private const string DATABASE_NAME = "MYDB10.db";
+        private const string DATABASE_NAME = "MYDB22.db";
         private static DBRepository instance;
         private DBRepository(string databasePath)
         {
@@ -38,13 +38,21 @@ namespace NetworkMonitor.DB
         {
             return database.Table<Connection>().Where(i => i.IdDate == id).ToList();
         }
-        public IEnumerable<Traffic> GetTraffics(/*int idCon, */int idDate)
+        public IEnumerable<Traffic> GetTraffics(int idCon, int idDate)
         {
-            return database.Table<Traffic>().Where(k => k.IdDate == idDate)/*.Where(i => i.IdConnection == idCon)*/.ToList();
+            return database.Table<Traffic>().Where(k => k.IdDate == idDate).Where(i => i.IdConnection == idCon).ToList();
+        }
+        public IEnumerable<Traffic> GetTraffics(int idDate)
+        {
+            return database.Table<Traffic>().Where(k => k.IdDate == idDate).ToList();
         }
         public Date GetDate(int id)
         {
             return database.Get<Date>(id);
+        }
+        public Connection GetConnection(string IP)
+        {
+            return database.Table<Connection>().Where(i => i.IP == IP).First();
         }
         public Connection GetConnection(int id)
         {
@@ -90,9 +98,9 @@ namespace NetworkMonitor.DB
                 return database.Insert(traffic);
             }
         }
-        public void UpdateWithChildren(Date date)
+        public void UpdateWithChildren<T>(T updated) where T : ITable
         {
-            database.UpdateWithChildren(date);
+            database.UpdateWithChildren(updated);
         }
     }
 }

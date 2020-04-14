@@ -49,7 +49,7 @@
     <Compile Include="MidnightNotifier.cs" />
     <Compile Include="Resources\Resource.designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Services\NetworkMonitorService.cs" />
+    <Compile Include="Services\DBService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />

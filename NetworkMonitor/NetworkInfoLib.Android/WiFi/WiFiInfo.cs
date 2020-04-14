@@ -10,6 +10,7 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
+using Java.Util;
 
 namespace NetworkInfoLib.Android.WiFi
 {
@@ -36,6 +37,21 @@ namespace NetworkInfoLib.Android.WiFi
             {
                 TransmittedBytes = value;
             }
+        }
+        public string GetIPAddress()
+        {
+            var AllNetworkInterfaces = Collections.List(Java.Net.NetworkInterface.NetworkInterfaces);
+            var IPAddress = "";
+            foreach (var interfaces in AllNetworkInterfaces)
+            {
+                var AddressInterface = (interfaces as Java.Net.NetworkInterface).InterfaceAddresses;
+                foreach (var AInterface in AddressInterface)
+                {
+                    if (AInterface.Broadcast != null)
+                        IPAddress = AInterface.Address.HostAddress;
+                }
+            }
+            return IPAddress;
         }
     }
 }
