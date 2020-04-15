@@ -25,11 +25,11 @@ namespace NetworkInfoLib.Android
 
         private TelephonyInfo telephonyInfo;
         private WiFiInfo wifiInfo;
-        private const long defaultBytes = 0;
 
         public ConnectionType type;
 
         public event EventHandler<string> ConnectionTypeChanged;
+        public event EventHandler CurrentStatsChanged;
 
         public string ConnectionType { get; set; }
         public string IP { get; private set; }
@@ -42,6 +42,7 @@ namespace NetworkInfoLib.Android
             wifiInfo = new WiFiInfo();
             ConnectionType = GetConnectionType();
             SetIP();
+            CurrentStats.ComponentChanged += CurrentStatsComponentChanged;
         }
 
         private string GetConnectionType()
@@ -77,34 +78,6 @@ namespace NetworkInfoLib.Android
         {
             typeChecker.CheckConnectionType();
         }
-        public long GetReceivedBytes()
-        {
-            switch(type)
-            {
-                case Android.ConnectionType.Telephony:
-                    return telephonyInfo.ReceivedBytes;
-                case Android.ConnectionType.WiFi:
-                    return wifiInfo.ReceivedBytes;
-                case Android.ConnectionType.offline:
-                    return defaultBytes;
-                default:
-                    throw new Exception();
-            }
-        }
-        public long GetTransmittedBytes()
-        {
-            switch (type)
-            {
-                case Android.ConnectionType.Telephony:
-                    return telephonyInfo.TransmittedBytes;
-                case Android.ConnectionType.WiFi:
-                    return wifiInfo.TransmittedBytes;
-                case Android.ConnectionType.offline:
-                    return defaultBytes;
-                default:
-                    throw new Exception();
-            }
-        }
         public long GetTotalReceivedBytes()
         {
             return TrafficStats.TotalRxBytes;
@@ -113,9 +86,42 @@ namespace NetworkInfoLib.Android
         {
             return TrafficStats.TotalTxBytes;
         }
+        private void CurrentStatsComponentChanged(object sender, EventArgs e)
+        {
+            CurrentStatsChanged?.Invoke(null, null);
+        }
+        public long GetReceivedSpeed()
+        {
+            return CurrentStats.ReceivedSpeed;
+        }
+        public long GetTransmittedSpeed()
+        {
+            return CurrentStats.TransmittedSpeed;
+        }
+        public long GetMaxReceivedSpeed()
+        {
+            return CurrentStats.MaxReceivedSpeed;
+        }
+        public long GetMaxTransmittedSpeed()
+        {
+            return CurrentStats.MaxTransmittedSpeed;
+        }
+        public long GetReceivedBytes()
+        {
+            return CurrentStats.ReceivedBytes;
+        }
+        public long GetTransmittedBytes()
+        {
+            return CurrentStats.TransmittedBytes;
+        }
+        public TimeSpan GetConnectionDuration()
+        {
+            return CurrentStats.ConnectionDuration;
+        }
         public void Dispose()
         {
             typeChecker.ConnectionTypeChanged -= CurrentConnectionTypeChanged;
+            CurrentStats.ComponentChanged -= CurrentStatsComponentChanged;
         }
     }
 }

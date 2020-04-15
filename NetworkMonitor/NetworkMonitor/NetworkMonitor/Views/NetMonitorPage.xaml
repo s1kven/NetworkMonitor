@@ -21,7 +21,7 @@
                         </StackLayout>
                     </StackLayout>
                     <StackLayout HorizontalOptions="CenterAndExpand">
-                        <Label FontSize="30" Text="0 B/s"/>
+                        <Label FontSize="28" Text="{Binding ReceivedSpeed}"/>
                     </StackLayout>
                 </StackLayout>
                 <StackLayout Grid.Column="1" Grid.Row="0" Orientation="Vertical" HorizontalOptions="CenterAndExpand">
@@ -34,16 +34,16 @@
                         </StackLayout>
                     </StackLayout>
                     <StackLayout HorizontalOptions="CenterAndExpand">
-                        <Label FontSize="30" Text="0 B/s"/>
+                        <Label FontSize="28" Text="{Binding TransmittedSpeed}"/>
                     </StackLayout>
                 </StackLayout>
                 <StackLayout Grid.Column="0" Grid.Row="1" Orientation="Vertical">
                     <Label HorizontalOptions="CenterAndExpand" FontSize="18" Text="Максимальная скорость скачивания"/>
-                    <Label HorizontalOptions="CenterAndExpand" FontSize="25" Text="0 B/s"/>
+                    <Label HorizontalOptions="CenterAndExpand" FontSize="25" Text="{Binding MaxReceivedSpeed}"/>
                 </StackLayout>
                 <StackLayout Grid.Column="1" Grid.Row="1" Orientation="Vertical">
                     <Label HorizontalOptions="CenterAndExpand" FontSize="18" Text="Максимальная скорость загрузки"/>
-                    <Label HorizontalOptions="CenterAndExpand" FontSize="25" Text="0 B/s"/>
+                    <Label HorizontalOptions="CenterAndExpand" FontSize="25" Text="{Binding MaxTransmittedSpeed}"/>
                 </StackLayout>
                 <StackLayout Grid.Column="0" Grid.Row="2" Orientation="Vertical">
                     <Label HorizontalOptions="CenterAndExpand" FontSize="18" Text="Израсходованный трафик скачивания"/>
@@ -56,7 +56,7 @@
             </Grid>
             <StackLayout Orientation="Vertical" Padding="0,30,0,0" HorizontalOptions="CenterAndExpand">
                 <Label FontSize="18" Text="Время использования сети"/>
-                <Label FontSize="25" HorizontalOptions="CenterAndExpand" Text="00:00:00"/>
+                <Label FontSize="25" HorizontalOptions="CenterAndExpand" Text="{Binding ConnectionTimer}"/>
             </StackLayout>
         </StackLayout>
     </ContentPage.Content>

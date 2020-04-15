@@ -7,12 +7,12 @@ namespace NetworkMonitor.Models
     public class NetMonitor
     {
         public string ConnectionType { get; set; }
-        public double DownloadSpeed { get; set; }
-        public double UploadSpeed { get; set; }
-        public double MaxDownloadSpeed { get; set; }
-        public double MaxUploadSpeed { get; set; }
+        public string ReceivedSpeed { get; set; }
+        public string TransmittedSpeed { get; set; }
+        public string MaxReceivedSpeed { get; set; }
+        public string MaxTransmittedSpeed { get; set; }
         public string ReceivedBytes { get; set; }
         public string TransmittedBytes { get; set; }
-        public double NetworkTimer { get; set; }
+        public string ConnectionTimer { get; set; }
     }
 }

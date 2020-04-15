@@ -16,7 +16,6 @@ namespace NetworkMonitor.Views
         public NetMonitorPage()
         {
             InitializeComponent();
-            Console.WriteLine("Page");
             this.BindingContext = new NetMonitorViewModel() { };
         }
     }

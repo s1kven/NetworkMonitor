@@ -16,6 +16,7 @@ namespace NetworkMonitor.Droid
         protected override void OnCreate(Bundle savedInstanceState)
         {
             StartService(new Android.Content.Intent(this, typeof(Services.Services.DBService)));
+            StartService(new Android.Content.Intent(this, typeof(Services.Services.CurrentStatsService)));
             TabLayoutResource = Resource.Layout.Tabbar;
             ToolbarResource = Resource.Layout.Toolbar;
 

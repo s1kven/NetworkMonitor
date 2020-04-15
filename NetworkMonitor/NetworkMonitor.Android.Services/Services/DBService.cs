@@ -34,7 +34,6 @@ namespace NetworkMonitor.Services.Services
         }
         public override void OnCreate()
         {
-            Console.WriteLine("OnCreateService");
             base.OnCreate();
             netInfo = new NetInfo();
             midNight = new MidnightNotifier();
