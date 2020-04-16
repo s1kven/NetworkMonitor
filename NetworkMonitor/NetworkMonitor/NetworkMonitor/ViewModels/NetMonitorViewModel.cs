@@ -31,7 +31,7 @@ namespace NetworkMonitor.ViewModels
                 if (netMonitor.ConnectionType != value)
                 {
                     netMonitor.ConnectionType = value;
-                    OnPropertyChanged("ConnectionType");
+                    OnPropertyChanged(nameof(ConnectionType));
                 }
             }
         }
@@ -44,7 +44,7 @@ namespace NetworkMonitor.ViewModels
                 if (netMonitor.ReceivedSpeed != speed)
                 {
                     netMonitor.ReceivedSpeed = speed;
-                    OnPropertyChanged("ReceivedSpeed");
+                    OnPropertyChanged(nameof(ReceivedSpeed));
                 }
             }
         }
@@ -57,7 +57,7 @@ namespace NetworkMonitor.ViewModels
                 if (netMonitor.TransmittedSpeed != speed)
                 {
                     netMonitor.TransmittedSpeed = speed;
-                    OnPropertyChanged("TransmittedSpeed");
+                    OnPropertyChanged(nameof(TransmittedSpeed));
                 }
             }
         }
@@ -70,7 +70,7 @@ namespace NetworkMonitor.ViewModels
                 if (netMonitor.MaxReceivedSpeed != speed)
                 {
                     netMonitor.MaxReceivedSpeed = speed;
-                    OnPropertyChanged("MaxReceivedSpeed");
+                    OnPropertyChanged(nameof(MaxReceivedSpeed));
                 }
             }
         }
@@ -83,7 +83,7 @@ namespace NetworkMonitor.ViewModels
                 if (netMonitor.MaxTransmittedSpeed != speed)
                 {
                     netMonitor.MaxTransmittedSpeed = speed;
-                    OnPropertyChanged("MaxTransmittedSpeed");
+                    OnPropertyChanged(nameof(MaxTransmittedSpeed));
                 }
             }
         }
@@ -96,7 +96,7 @@ namespace NetworkMonitor.ViewModels
                 if (netMonitor.ReceivedBytes != bytes)
                 {
                     netMonitor.ReceivedBytes = bytes;
-                    OnPropertyChanged("ReceivedBytes");
+                    OnPropertyChanged(nameof(ReceivedBytes));
                 }
             }
         }
@@ -109,7 +109,7 @@ namespace NetworkMonitor.ViewModels
                 if (netMonitor.TransmittedBytes != bytes)
                 {
                     netMonitor.TransmittedBytes = bytes;
-                    OnPropertyChanged("TransmittedBytes");
+                    OnPropertyChanged(nameof(TransmittedBytes));
                 }
             }
         }
@@ -121,7 +121,7 @@ namespace NetworkMonitor.ViewModels
                 if(netMonitor.ConnectionTimer != value)
                 {
                     netMonitor.ConnectionTimer = value;
-                    OnPropertyChanged("ConnectionTimer");
+                    OnPropertyChanged(nameof(ConnectionTimer));
                 }
             }
         }

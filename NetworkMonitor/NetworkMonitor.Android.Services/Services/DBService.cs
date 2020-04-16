@@ -62,82 +62,24 @@ namespace NetworkMonitor.Services.Services
         {
             if (date.Connections != null)
             {
-                Console.WriteLine("WriteToDB");
                 AddInfoPastConnection();
                 date.Traffics.Add(traffic);
                 date.Connections.Add(connection);
                 date.ConnectionDate = DateTime.Today.AddHours(-24);
                 DBRepository.GetInstance().SaveDate(date);
-                Console.WriteLine("SaveDate");
                 foreach(Connection connection in date.Connections)
                 {
-                    Console.WriteLine("Save connection");
-                    Console.WriteLine("connection.Id = " + connection.Id);
-                    Console.WriteLine("connection.IdDate = " + connection.IdDate);
-                    Console.WriteLine("connection.ConnectionType = " + connection.ConnectionType);
-                    Console.WriteLine("connection.IP = " + connection.IP);
                     DBRepository.GetInstance().SaveConnection(connection);
-
-                    //DBRepository.GetInstance().UpdateWithChildren(DBRepository.GetInstance().GetConnection(connection.IP));
                 }
                 foreach (Traffic traffic in date.Traffics)
                 {
-                    //if(IsExistIpDB(connection))
-                    //{
-                    //    traffic.IdConnection = DBRepository.GetInstance().GetConnection(connection.IP).Id;
-                    //}
-                    Console.WriteLine("Save traffic");
-                    Console.WriteLine("traffic.Id = " + traffic.Id);
-                    Console.WriteLine("traffic.IdConnection = " + traffic.IdConnection);
-                    Console.WriteLine("traffic.IdDate = " + traffic.IdDate);
-                    Console.WriteLine("traffic.ReceivedBytes = " + traffic.ReceivedBytes);
-                    Console.WriteLine("traffic.TransmittedBytes = " + traffic.TransmittedBytes);
                     DBRepository.GetInstance().SaveTraffic(traffic);
                 }
                 DBRepository.GetInstance().UpdateWithChildren(date);
-                Console.WriteLine("date.Id = " + date.Id);
-                foreach (Connection connection in DBRepository.GetInstance().GetConnections(date.Id))
-                {
-                    Console.WriteLine("Get connection");
-                    Console.WriteLine("connection.Id = " + connection.Id);
-                    Console.WriteLine("connection.IdDate = " + connection.IdDate);
-                    Console.WriteLine("connection.ConnectionType = " + connection.ConnectionType);
-                    Console.WriteLine("connection.IP = " + connection.IP);
-                }
-                foreach (Traffic traffic in DBRepository.GetInstance().GetTraffics(date.Id))
-                {
-                    Console.WriteLine("Get traffic");
-                    Console.WriteLine("traffic.Id = " + traffic.Id);
-                    Console.WriteLine("traffic.IdConnection = " + traffic.IdConnection);
-                    Console.WriteLine("traffic.IdDate = " + traffic.IdDate);
-                    Console.WriteLine("traffic.ReceivedBytes = " + traffic.ReceivedBytes);
-                    Console.WriteLine("traffic.TransmittedBytes = " + traffic.TransmittedBytes);
-                }
             }
-            //date = new Date();
-            //traffic = new Traffic();
-            //connection = new Connection();
         }
-        //private bool IsExistIpDB(Connection connection)
-        //{
-        //    if (DBRepository.GetInstance().GetConnection(connection.IP) == null)
-        //        return false;
-        //    else
-        //        return true;
-        //}
-        //private bool IsExistIpService(Connection connection, List<Connection> connections)
-        //{
-        //    bool isExistIP = false;
-        //    foreach(Connection con in connections)
-        //    {
-        //        if (connection.IP == con.IP)
-        //            isExistIP = true;
-        //    }
-        //    return isExistIP;
-        //}
         private void ConnectionTypeChanged(object sender, string type)
         {
-            Console.WriteLine("Service ConnectionTypeChanged");
             if (type != ConnectionType.offline.ToString())
             {
                 AddInfoPastConnection();
@@ -163,7 +105,6 @@ namespace NetworkMonitor.Services.Services
         //public override void OnDestroy()
         //{
         //    base.OnDestroy();
-        //    Console.WriteLine("OnDestroyService");
         //    netInfo.ConnectionTypeChanged -= ConnectionTypeChanged;
         //    midNight.DayChanged -= WriteToDB;
         //}

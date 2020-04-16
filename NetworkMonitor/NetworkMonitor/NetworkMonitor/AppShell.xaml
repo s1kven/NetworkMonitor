@@ -3,11 +3,9 @@
        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
        x:Class="NetworkMonitor.AppShell"
        xmlns:pages="clr-namespace:NetworkMonitor.Views">
-    <!--<Shell.Resources>
+    <Shell.Resources>
         <Style x:Key="BaseStyle"
                TargetType="Element">
-            <Setter Property="Shell.BackgroundColor"
-                    Value="#455A64" />
             <Setter Property="Shell.ForegroundColor"
                     Value="White" />
             <Setter Property="Shell.TitleColor"
@@ -19,10 +17,10 @@
         </Style>
         <Style TargetType="ShellItem"
                BasedOn="{StaticResource BaseStyle}" />
-    </Shell.Resources>-->
+    </Shell.Resources>
 
-    <ShellContent Title="NetMonitor" ContentTemplate="{DataTemplate pages:NetMonitorPage}"/>
-    <ShellContent Title="ConnectionInfo" ContentTemplate="{DataTemplate pages:ConnectionInfoPage}"/>
-    <ShellContent Title="ConnectionHistory" ContentTemplate="{DataTemplate pages:ConnectionHistoryPage}"/>
+    <ShellContent Title="Текущая статистика" ContentTemplate="{DataTemplate pages:NetMonitorPage}"/>
+    <ShellContent Title="Информация о подключении" ContentTemplate="{DataTemplate pages:ConnectionInfoPage}"/>
+    <ShellContent Title="История подключений" ContentTemplate="{DataTemplate pages:ConnectionHistoryPage}"/>
 
 </Shell>

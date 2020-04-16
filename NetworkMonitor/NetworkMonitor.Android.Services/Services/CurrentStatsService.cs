@@ -44,7 +44,8 @@ namespace NetworkMonitor.Services.Services
             if (netInfo.type != ConnectionType.offline)
             {
                 InitTimer();
-                timeStartConnection = DateTime.Now;
+                DateTime dateTime = DateTime.Now;
+                timeStartConnection = dateTime.AddTicks(-(dateTime.Ticks % TimeSpan.TicksPerSecond));
             }
         }
 
@@ -57,7 +58,8 @@ namespace NetworkMonitor.Services.Services
                 startTransmittedBytes = netInfo.GetTotalTransmittedBytes();
                 TotalReceivedBytes = netInfo.GetTotalReceivedBytes();
                 TotalTransmittedBytes = netInfo.GetTotalTransmittedBytes();
-                timeStartConnection = DateTime.Now;
+                DateTime dateTime = DateTime.Now;
+                timeStartConnection = dateTime.AddTicks(-(dateTime.Ticks % TimeSpan.TicksPerSecond));
             }
             else
             {
@@ -71,7 +73,6 @@ namespace NetworkMonitor.Services.Services
                 timer.Enabled = false;
             }
         }
-
         private void InitTimer()
         {
             timer.Interval = interval;
@@ -91,7 +92,6 @@ namespace NetworkMonitor.Services.Services
             SetTransmittedBytes();
             SetConnectionDuration();
         }
-
         private void SetReceivedSpeed()
         {
             ReceivedSpeed = netInfo.GetTotalReceivedBytes() - TotalReceivedBytes;
@@ -160,7 +160,8 @@ namespace NetworkMonitor.Services.Services
         }
         private void SetConnectionDuration()
         {
-            CurrentStats.ConnectionDuration = DateTime.Now - timeStartConnection;
+            DateTime dateTime = DateTime.Now;
+            CurrentStats.ConnectionDuration = dateTime.AddTicks(-(dateTime.Ticks % TimeSpan.TicksPerSecond)) - timeStartConnection;
         }
         private void SetConnectionDuration(int defaultValue)
         {
